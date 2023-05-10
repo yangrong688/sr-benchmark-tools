@@ -97,7 +97,7 @@ echo "DB: ${DB}"
 
 run_sql() {
     echo "$@"
-    mysql -h"${FE_HOST}" -P"${FE_QUERY_PORT}" -u"${USER}" -D"${DB}" -e "$@"
+    mysql -h"${FE_HOST}" -P"${FE_QUERY_PORT}" -u"${USER}" -p"${PASSWORD}" -D"${DB}" -e "$@"
 }
 
 echo '============================================'
@@ -136,7 +136,7 @@ echo '============================================'
 sum=0
 for i in '1.1' '1.2' '1.3' '2.1' '2.2' '2.3' '3.1' '3.2' '3.3' '3.4' '4.1' '4.2' '4.3'; do
     # Each query is executed 3 times and takes the average time
-    res=$(mysqlslap -h"${FE_HOST}" -P"${FE_QUERY_PORT}" -u"${USER}" --create-schema="${DB}" --query="${QUERIES_DIR}/q${i}.sql" -F '\r' -i 3 | sed -n '2p' | cut -d ' ' -f 9,10)
+    res=$(mysqlslap -h"${FE_HOST}" -P"${FE_QUERY_PORT}" -u"${USER}" -p"${PASSWORD}" --create-schema="${DB}" --query="${QUERIES_DIR}/q${i}.sql" -F '\r' -i 3 | sed -n '2p' | cut -d ' ' -f 9,10)
     echo "q${i}: ${res}"
     cost=$(echo "${res}" | cut -d' ' -f1)
     sum=$(echo "${sum} + ${cost}" | bc)

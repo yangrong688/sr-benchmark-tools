@@ -94,7 +94,7 @@ echo "PASSWORD: $PASSWORD"
 echo "DB: $DB"
 
 function check_doris_conf() {
-    cv=$(mysql -h$FE_HOST -P$FE_QUERY_PORT -u$USER -e 'admin show frontend config' | grep 'stream_load_default_timeout_second' | awk '{print $2}')
+    cv=$(mysql -h$FE_HOST -P$FE_QUERY_PORT -u$USER -p$PASSWORD -e 'admin show frontend config' | grep 'stream_load_default_timeout_second' | awk '{print $2}')
     if (($cv < 3600)); then
         echo "advise: revise your Doris FE's conf to set 'stream_load_default_timeout_second=3600' or above"
     fi

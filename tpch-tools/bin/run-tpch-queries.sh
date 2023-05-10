@@ -94,7 +94,7 @@ echo "DB: ${DB}"
 
 run_sql() {
     echo "$*"
-    mysql -h"${FE_HOST}" -u"${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" -e "$*"
+    mysql -h"${FE_HOST}" -u"${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" -e "$*"
 }
 
 echo '============================================'
@@ -115,19 +115,19 @@ for i in $(seq 1 22); do
     echo -ne "q${i}\t" | tee -a result.csv
 
     start=$(date +%s%3N)
-    mysql -h"${FE_HOST}" -u "${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
+    mysql -h"${FE_HOST}" -u "${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
     end=$(date +%s%3N)
     cold=$((end - start))
     echo -ne "${cold}\t" | tee -a result.csv
 
     start=$(date +%s%3N)
-    mysql -h"${FE_HOST}" -u "${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
+    mysql -h"${FE_HOST}" -u "${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
     end=$(date +%s%3N)
     hot1=$((end - start))
     echo -ne "${hot1}\t" | tee -a result.csv
 
     start=$(date +%s%3N)
-    mysql -h"${FE_HOST}" -u "${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
+    mysql -h"${FE_HOST}" -u "${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" --comments <"${QUERIES_DIR}/q${i}.sql" >/dev/null
     end=$(date +%s%3N)
     hot2=$((end - start))
     echo -ne "${hot2}" | tee -a result.csv

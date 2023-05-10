@@ -105,7 +105,7 @@ check_prerequest() {
 run_sql() {
     sql="$*"
     echo "${sql}"
-    mysql -h"${FE_HOST}" -u"${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" -e "$@"
+    mysql -h"${FE_HOST}" -u"${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" -e "$@"
 }
 
 load_lineitem_flat() {

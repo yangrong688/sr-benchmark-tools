@@ -91,10 +91,10 @@ echo "FE_QUERY_PORT: ${FE_QUERY_PORT}"
 echo "USER: ${USER}"
 echo "DB: ${DB}"
 
-mysql -h"${FE_HOST}" -u"${USER}" -P"${FE_QUERY_PORT}" -e "DROP DATABASE IF EXISTS ${DB}"
-mysql -h"${FE_HOST}" -u"${USER}" -P"${FE_QUERY_PORT}" -e "CREATE DATABASE ${DB}"
+mysql -h"${FE_HOST}" -u"${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -e "DROP DATABASE IF EXISTS ${DB}"
+mysql -h"${FE_HOST}" -u"${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -e "CREATE DATABASE ${DB}"
 
 echo "Run SQLs from ${CURDIR}/../ddl/create-tpcds-tables.sql"
-mysql -h"${FE_HOST}" -u"${USER}" -P"${FE_QUERY_PORT}" -D"${DB}" <"${CURDIR}"/../ddl/create-tpcds-tables.sql
+mysql -h"${FE_HOST}" -u"${USER}" -p"${PASSWORD}" -P"${FE_QUERY_PORT}" -D"${DB}" <"${CURDIR}"/../ddl/create-tpcds-tables.sql
 
 echo "tpcds tables has been created"
